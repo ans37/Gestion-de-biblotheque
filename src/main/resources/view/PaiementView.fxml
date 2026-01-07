@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.PaiementController" stylesheets="@style.css"
+            prefWidth="600" prefHeight="700">
+
+    <top>
+        <VBox>
+            <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+                <Label text="💳 PAIEMENT SÉCURISÉ"
+                       style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- Barre de progression -->
+            <HBox spacing="0" alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 15;">
+                <VBox alignment="CENTER" spacing="5" style="-fx-padding: 10;">
+                    <Label text="1"
+                           style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 50%; -fx-min-width: 30; -fx-min-height: 30; -fx-alignment: center; -fx-font-weight: bold;"/>
+                    <Label text="Informations" style="-fx-font-size: 11px;"/>
+                </VBox>
+                <Separator prefWidth="50" style="-fx-background-color: #3498db; -fx-padding: 2;"/>
+                <VBox alignment="CENTER" spacing="5" style="-fx-padding: 10;">
+                    <Label text="2"
+                           style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 50%; -fx-min-width: 30; -fx-min-height: 30; -fx-alignment: center; -fx-font-weight: bold;"/>
+                    <Label text="Confirmation" style="-fx-font-size: 11px;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+            <VBox spacing="25" style="-fx-padding: 30;">
+
+                <!-- Récapitulatif de la commande -->
+                <VBox spacing="15" style="-fx-background-color: #ecf0f1; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text="📋 RÉCAPITULATIF DE LA COMMANDE" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="10">
+                        <Label text="Livre :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               style="-fx-font-weight: bold;"/>
+                        <Label fx:id="labelTitreLivre" text="Titre du livre"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               style="-fx-font-size: 14px;"/>
+
+                        <Label text="Auteur :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               style="-fx-font-weight: bold;"/>
+                        <Label fx:id="labelAuteurLivre" text="Auteur"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Prix :" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               style="-fx-font-weight: bold;"/>
+                        <Label fx:id="labelPrixLivre" text="0.00 DH"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e67e22;"/>
+                    </GridPane>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Informations de paiement -->
+                <VBox spacing="15">
+                    <Label text="💳 INFORMATIONS DE PAIEMENT" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="15">
+
+                        <!-- Mode de paiement -->
+                        <Label text="Mode de paiement *" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="comboModePaiement"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                  prefWidth="300"/>
+
+                        <!-- Numéro de carte -->
+                        <Label text="Numéro de carte *" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtNumeroCarte" promptText="1234 5678 9012 3456"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Nom sur la carte -->
+                        <Label text="Nom sur la carte *" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtNomCarte" promptText="JEAN DUPONT"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <!-- Date d'expiration -->
+                        <Label text="Date d'expiration *" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                               style="-fx-font-weight: bold;"/>
+                        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <ComboBox fx:id="comboMois" promptText="Mois" prefWidth="100"/>
+                            <ComboBox fx:id="comboAnnee" promptText="Année" prefWidth="100"/>
+                        </HBox>
+
+                        <!-- CVV -->
+                        <Label text="CVV *" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtCVV" promptText="123"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                   prefWidth="100"/>
+                    </GridPane>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Adresse de facturation -->
+                <VBox spacing="15">
+                    <Label text="🏠 ADRESSE DE FACTURATION" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="15">
+
+                        <!-- Nom complet -->
+                        <Label text="Nom complet *" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtNomComplet" promptText="Nom et prénom"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <!-- Email -->
+                        <Label text="Email *" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtEmail" promptText="email@exemple.com"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Téléphone -->
+                        <Label text="Téléphone" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtTelephone" promptText="+212 6XX XXX XXX"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <!-- Adresse -->
+                        <Label text="Adresse *" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                               style="-fx-font-weight: bold;"/>
+                        <TextArea fx:id="txtAdresse" promptText="Adresse complète"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="3"
+                                  prefRowCount="2"/>
+
+                        <!-- Ville -->
+                        <Label text="Ville *" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtVille" promptText="Ville"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                        <!-- Code postal -->
+                        <Label text="Code postal *" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtCodePostal" promptText="20000"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="5"
+                                   prefWidth="150"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- Conditions générales -->
+                <VBox spacing="10">
+                    <CheckBox fx:id="checkConditions"
+                              text="J'accepte les conditions générales de vente et la politique de confidentialité"
+                              wrapText="true"/>
+
+                    <Label text="🔒 Paiement sécurisé - Vos données sont protégées"
+                           style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;"/>
+                </VBox>
+
+                <!-- Message d'erreur -->
+                <Label fx:id="labelErreur" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"
+                       visible="false" wrapText="true"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 20;">
+            <Button text="← Retour" onAction="#handleRetour"
+                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;"
+                    prefWidth="150">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Button>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <VBox alignment="CENTER_RIGHT" spacing="5">
+                <Label text="Montant total :" style="-fx-font-size: 12px;"/>
+                <Label fx:id="labelMontantTotal" text="0.00 DH"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e67e22;"/>
+            </VBox>
+
+            <Button text="💳 Payer maintenant" onAction="#handlePayer"
+                    styleClass="btn-success" prefWidth="200">
+                <font>
+                    <Font name="System Bold" size="16"/>
+                </font>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>

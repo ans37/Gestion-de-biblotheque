@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MainController" stylesheets="@style.css">
+
+    <!-- Barre de menu supérieure -->
+    <top>
+        <VBox>
+            <!-- MenuBar -->
+            <MenuBar>
+                <Menu text="Fichier">
+                    <MenuItem text="Quitter" onAction="#handleQuitter"/>
+                </Menu>
+                <Menu text="Administration">
+                    <MenuItem  style=" -fx-text-fill:#black ;" text="Connexion Admin" onAction="#handleLoginAdmin"/>
+                    <MenuItem  text="Déconnexion" onAction="#handleLogout" fx:id="menuDeconnexion" disable="true"/>
+                </Menu>
+                <Menu text="Aide">
+                    <MenuItem text="À propos" onAction="#handleAPropos"/>
+                </Menu>
+            </MenuBar>
+
+            <!-- En-tête avec titre -->
+            <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 10px;">
+                <VBox alignment="CENTER">
+                    <Label text="📚 BIBLIOTHÈQUE NUMÉRIQUE" style="-fx-text-fill: white;">
+                        <font>
+                            <Font name="System Bold" size="28"/>
+                        </font>
+                    </Label>
+                    <Label text="Découvrez, Lisez, Téléchargez" style="-fx-text-fill: #ecf0f1;">
+                        <font>
+                            <Font size="14"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="labelUtilisateur" style="-fx-text-fill: #3498db;" visible="false">
+                        <font>
+                            <Font name="System Bold" size="12"/>
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Barre latérale gauche -->
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 15;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="NAVIGATION" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Separator/>
+
+            <Button text="🏠 Accueil" onAction="#handleAccueil" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="🔍 Rechercher" onAction="#handleRecherche" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Separator/>   
+
+            <Button text="⚙️Gestion (Admin)" fx:id="btnAdmin" onAction="#handleGestionAdmin"
+                    maxWidth="Infinity" styleClass="admin-button" visible="false"/>
+
+            <Separator/>
+            <Label text="CATÉGORIES" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="📖 Roman" onAction="#handleCategorieRoman" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="🚀 Science-Fiction" onAction="#handleCategorieSciFi" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="💻 Informatique" onAction="#handleCategorieInfo" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="📜 Histoire" onAction="#handleCategorieHistoire" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="🏛️ Droit" onAction="#handleCategorieDroit" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Button text="🔬 Siences" onAction="#handleCategorieSciences" maxWidth="Infinity"
+                    styleClass="nav-button"/>
+            <Separator/>
+            <Button text="💬 Chat / Aide" onAction="#openChatWindow" maxWidth="Infinity" styleClass="nav-button"/>
+           
+            
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Separator/>
+
+            
+        </VBox>
+            
+    </left>
+
+    <!-- Contenu central -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+
+            <!-- Barre de recherche -->
+            <HBox spacing="10" alignment="CENTER">
+                <TextField fx:id="txtRecherche" promptText="Rechercher un livre par titre, auteur, catégorie..."
+                           prefWidth="500">
+                    <font>
+                        <Font size="14"/>
+                    </font>
+                </TextField>
+                <Button text="🔍 Rechercher" onAction="#handleRechercheRapide"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;">
+                    <font>
+                        <Font name="System Bold" size="14"/>
+                    </font>
+                </Button>
+            </HBox>
+
+            <!-- Zone d'affichage des livres -->
+            <ScrollPane fitToWidth="true" fitToHeight="true">
+                 <GridPane fx:id="conteneurLivres"
+                           hgap="20"
+                           vgap="20"
+                           alignment="TOP_CENTER">
+            
+                      <padding>
+                         <Insets top="10" right="10" bottom="10" left="10"/>
+                       </padding>
+
+                         </GridPane>
+              </ScrollPane>
+
+                 
+                    <!-- Message de bienvenue par défaut -->
+                    <VBox alignment="CENTER" spacing="20" style="-fx-padding: 2px; color: #343434ff">
+                        <Label text="Bienvenue dans votre bibliothèque numérique !"
+                               style="-fx-font-size: 15px; -fx-font-weight: bold;color: #fff"/>
+        
+                    </VBox>
+        </VBox>
+    </center>
+
+    <!-- Barre de statut en bas -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #d9d9d9ff; -fx-padding: 10;">
+            <Label fx:id="labelStatut" text="Prêt" style="-fx-font-size: 13px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="labelNombreLivres" text="0 livres disponibles" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

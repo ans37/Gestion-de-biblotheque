@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LivreFormController" stylesheets="@style.css"
+            prefWidth="700" prefHeight="750">
+
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Label fx:id="labelTitreForm" text="AJOUTER UN LIVRE"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Informations de base -->
+                <VBox spacing="10">
+                    <Label text="📚 INFORMATIONS DE BASE" styleClass="section-title"/>
+
+                    <GridPane hgap="15" vgap="15">
+
+                        <!-- ISBN -->
+                        <Label text="ISBN *" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtIsbn" promptText="978-X-XXX-XXXXX-X"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                   prefWidth="300"/>
+
+                        <!-- Titre -->
+                        <Label text="Titre *" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtTitre" promptText="Titre du livre"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <!-- Auteur -->
+                        <Label text="Auteur *" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="comboAuteur" promptText="Sélectionner un auteur"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                  prefWidth="300"/>
+
+                        <!-- Catégorie -->
+                        <Label text="Catégorie *" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                               style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="comboCategorie" promptText="Sélectionner une catégorie"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="3"
+                                  prefWidth="300"/>
+
+                        <!-- Année -->
+                        <Label text="Année de publication" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtAnnee" promptText="2024"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                   prefWidth="150"/>
+
+                        <!-- Langue -->
+                        <Label text="Langue" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                               style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="comboLangue"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="5"
+                                  prefWidth="200"/>
+
+                        <!-- Nombre de pages -->
+                        <Label text="Nombre de pages" GridPane.columnIndex="0" GridPane.rowIndex="6"
+                               style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtNombrePages" promptText="300"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="6"
+                                   prefWidth="150"/>
+                    </GridPane>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Description -->
+                <VBox spacing="10">
+                    <Label text="📝 DESCRIPTION" styleClass="section-title"/>
+                    <TextArea fx:id="txtDescription" promptText="Description du livre..."
+                              wrapText="true" prefRowCount="4"/>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Fichier PDF -->
+                <VBox spacing="10">
+                    <Label text="📄 FICHIER PDF" styleClass="section-title"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtCheminPdf" promptText="Chemin du fichier PDF"
+                                   editable="false" HBox.hgrow="ALWAYS"/>
+                        <Button text="📁 Parcourir" onAction="#handleParcourirPdf"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                    </HBox>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Type et Prix -->
+                <VBox spacing="15">
+                    <Label text="💰 TYPE ET PRIX" styleClass="section-title"/>
+
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <Label text="Type de livre *" style="-fx-font-weight: bold;"/>
+                        <RadioButton text="Gratuit" fx:id="radioGratuit" selected="true">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="groupeType"/>
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton text="Payant" fx:id="radioPayant" toggleGroup="$groupeType"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT" fx:id="boxPrix" visible="false">
+                        <Label text="Prix (DH) *" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtPrix" promptText="0.00" prefWidth="150"/>
+                        <Label text="DH"/>
+                    </HBox>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Disponibilité -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="📦 DISPONIBILITÉ" styleClass="section-title"/>
+                    <CheckBox fx:id="checkDisponible" text="Livre disponible" selected="true"/>
+                </HBox>
+
+                <!-- Message d'erreur -->
+                <Label fx:id="labelErreur" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"
+                       visible="false" wrapText="true"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 20;">
+            <Button text="💾 Enregistrer" onAction="#handleEnregistrer"
+                    styleClass="btn-success" prefWidth="150">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Button>
+            <Button text="❌ Annuler" onAction="#handleAnnuler"
+                    styleClass="btn-danger" prefWidth="150">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>
