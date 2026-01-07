@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LivreDetailsController" stylesheets="@style.css"
+            prefWidth="800" prefHeight="600">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 15;">
+            <Button text="← Retour" onAction="#handleRetour"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Label text="DÉTAILS DU LIVRE" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- En-tête du livre -->
+                <HBox spacing="30" alignment="TOP_LEFT">
+
+                    <!-- Image de couverture (simulée) -->
+                    <VBox alignment="CENTER" spacing="10"
+                          style="-fx-background-color: #ecf0f1; -fx-padding: 20; -fx-min-width: 200; -fx-min-height: 280;">
+                        <Label text="📖" style="-fx-font-size: 80px;"/>
+                        <Label text="Couverture" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+                    </VBox>
+
+                    <!-- Informations principales -->
+                    <VBox spacing="15" HBox.hgrow="ALWAYS">
+
+                        <!-- Titre -->
+                        <Label fx:id="labelTitre" text="Titre du livre"
+                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                        <!-- Auteur -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="✍️" style="-fx-font-size: 18px;"/>
+                            <Label text="Par" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                            <Label fx:id="labelAuteur" text="Nom de l'auteur"
+                                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #3498db;"/>
+                        </HBox>
+
+                        <!-- Catégorie -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🗂️" style="-fx-font-size: 16px;"/>
+                            <Label fx:id="labelCategorie" text="Catégorie"
+                                   styleClass="badge-gratuit"/>
+                        </HBox>
+
+                        <!-- Type et Prix -->
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <Label fx:id="labelTypeLivre" text="GRATUIT" styleClass="badge-gratuit"/>
+                            <Label fx:id="labelPrix" text="0.00 DH" styleClass="badge-prix" visible="false"/>
+                        </HBox>
+
+                        <!-- Informations supplémentaires -->
+                        <GridPane hgap="15" vgap="10">
+                            <padding>
+                                <Insets top="10"/>
+                            </padding>
+
+                            <Label text="ISBN :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                   style="-fx-font-weight: bold;"/>
+                            <Label fx:id="labelIsbn" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                            <Label text="Année :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                   style="-fx-font-weight: bold;"/>
+                            <Label fx:id="labelAnnee" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                            <Label text="Langue :" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                   style="-fx-font-weight: bold;"/>
+                            <Label fx:id="labelLangue" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                            <Label text="Pages :" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                                   style="-fx-font-weight: bold;"/>
+                            <Label fx:id="labelPages" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                            <Label text="Disponibilité :" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                                   style="-fx-font-weight: bold;"/>
+                            <Label fx:id="labelDisponibilite" text="Disponible"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                   style="-fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                        </GridPane>
+                    </VBox>
+                </HBox>
+
+                <Separator/>
+
+                <!-- Description -->
+                <VBox spacing="10">
+                    <Label text="📄 DESCRIPTION" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <TextArea fx:id="txtDescription" wrapText="true" editable="false"
+                              prefRowCount="6" style="-fx-background-color: #ecf0f1;"/>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Actions -->
+                <VBox spacing="15">
+                    <Label text="⚡ ACTIONS DISPONIBLES" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <!-- Bouton Lire -->
+                        <Button text="📖 Lire en ligne" onAction="#handleLire"
+                                styleClass="btn-primary" prefWidth="200">
+                            <font>
+                                <Font name="System Bold" size="14"/>
+                            </font>
+                        </Button>
+
+                        <!-- Bouton Télécharger -->
+                        <Button fx:id="btnTelecharger" text="📥 Télécharger" onAction="#handleTelecharger"
+                                styleClass="btn-success" prefWidth="200">
+                            <font>
+                                <Font name="System Bold" size="14"/>
+                            </font>
+                        </Button>
+
+                        <!-- Message pour livre payant -->
+                        <Label fx:id="labelMessagePaiement"
+                               text="💰 Paiement requis pour télécharger ce livre"
+                               style="-fx-text-fill: #e67e22; -fx-font-weight: bold; -fx-font-size: 12px;"
+                               visible="false"/>
+                    </HBox>
+
+                    <!-- Note -->
+                    <Label text="💡 La lecture en ligne est toujours gratuite pour tous les livres"
+                           style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

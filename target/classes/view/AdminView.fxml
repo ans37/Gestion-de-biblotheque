@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.AdminController" stylesheets="@style.css">
+
+    <!-- En-tête -->
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+                <Label text="⚙️GESTION DE LA BIBLIOTHÈQUE" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="← Retour à l'accueil" onAction="#handleRetourAccueil"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- Barre d'onglets -->
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+
+                <!-- Onglet Gestion des Livres -->
+                <Tab text="📚 Gestion des Livres">
+                    <VBox spacing="15" style="-fx-padding: 20;">
+
+                        <!-- Barre d'outils -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="➕ Ajouter un livre" onAction="#handleAjouterLivre"
+                                    styleClass="btn-success"/>
+                            <Button text="✏️ Modifier" onAction="#handleModifierLivre"
+                                    styleClass="btn-warning" fx:id="btnModifier" disable="true"/>
+                            <Button text="🗑️ Supprimer" onAction="#handleSupprimerLivre"
+                                    styleClass="btn-danger" fx:id="btnSupprimer" disable="true"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="txtRechercheAdmin" promptText="Rechercher un livre..."
+                                       prefWidth="250"/>
+                            <Button text="🔍" onAction="#handleRechercherAdmin"/>
+                            <Button text="🔄 Actualiser" onAction="#handleActualiser"/>
+                        </HBox>
+
+                        <!-- TableView des livres -->
+                        <TableView fx:id="tableLivres" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn text="ID" prefWidth="50" fx:id="colId"/>
+                                <TableColumn text="ISBN" prefWidth="120" fx:id="colIsbn"/>
+                                <TableColumn text="Titre" prefWidth="250" fx:id="colTitre"/>
+                                <TableColumn text="Auteur" prefWidth="150" fx:id="colAuteur"/>
+                                <TableColumn text="Catégorie" prefWidth="120" fx:id="colCategorie"/>
+                                <TableColumn text="Année" prefWidth="80" fx:id="colAnnee"/>
+                                <TableColumn text="Type" prefWidth="100" fx:id="colType"/>
+                                <TableColumn text="Prix" prefWidth="80" fx:id="colPrix"/>
+                                <TableColumn text="Disponible" prefWidth="100" fx:id="colDisponible"/>
+                            </columns>
+                        </TableView>
+
+                        <!-- Statistiques -->
+                        <HBox spacing="20" alignment="CENTER">
+                            <Label fx:id="labelTotalLivres" text="Total : 0 livres"
+                                   style="-fx-font-weight: bold;"/>
+                            <Separator orientation="VERTICAL"/>
+                            <Label fx:id="labelLivresGratuits" text="Gratuits : 0"
+                                   style="-fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                            <Separator orientation="VERTICAL"/>
+                            <Label fx:id="labelLivresPayants" text="Payants : 0"
+                                   style="-fx-text-fill: #e67e22; -fx-font-weight: bold;"/>
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- Onglet Gestion des Auteurs -->
+                <Tab text="✍️ Gestion des Auteurs">
+                    <VBox spacing="15" style="-fx-padding: 20;">
+
+                        <!-- Barre d'outils auteurs -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="➕ Ajouter un auteur" onAction="#handleAjouterAuteur"
+                                    styleClass="btn-success"/>
+                            <Button text="✏️ Modifier" onAction="#handleModifierAuteur"
+                                    styleClass="btn-warning" fx:id="btnModifierAuteur" disable="true"/>
+                            <Button text="🗑️ Supprimer" onAction="#handleSupprimerAuteur"
+                                    styleClass="btn-danger" fx:id="btnSupprimerAuteur" disable="true"/>
+                        </HBox>
+
+                        <!-- TableView des auteurs -->
+                        <TableView fx:id="tableAuteurs" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn text="ID" prefWidth="80" fx:id="colAuteurId"/>
+                                <TableColumn text="Nom" prefWidth="200" fx:id="colAuteurNom"/>
+                                <TableColumn text="Prénom" prefWidth="200" fx:id="colAuteurPrenom"/>
+                                <TableColumn text="Biographie" prefWidth="400" fx:id="colAuteurBio"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+
+                <!-- Onglet Gestion des Catégories -->
+                <Tab text="🗂️ Gestion des Catégories">
+                    <VBox spacing="15" style="-fx-padding: 20;">
+
+                        <!-- Barre d'outils catégories -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button text="➕ Ajouter une catégorie" onAction="#handleAjouterCategorie"
+                                    styleClass="btn-success"/>
+                            <Button text="✏️ Modifier" onAction="#handleModifierCategorie"
+                                    styleClass="btn-warning" fx:id="btnModifierCategorie" disable="true"/>
+                            <Button text="🗑️ Supprimer" onAction="#handleSupprimerCategorie"
+                                    styleClass="btn-danger" fx:id="btnSupprimerCategorie" disable="true"/>
+                        </HBox>
+
+                        <!-- TableView des catégories -->
+                        <TableView fx:id="tableCategories" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn text="ID" prefWidth="100" fx:id="colCategorieId"/>
+                                <TableColumn text="Nom" prefWidth="250" fx:id="colCategorieNom"/>
+                                <TableColumn text="Description" prefWidth="500" fx:id="colCategorieDesc"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+
+                <!-- Onglet Statistiques -->
+                <Tab text="📊 Statistiques">
+                    <VBox spacing="20" style="-fx-padding: 30;">
+
+                        <Label text="STATISTIQUES DE LA BIBLIOTHÈQUE" styleClass="section-title"/>
+
+                        <GridPane hgap="20" vgap="15">
+                            <padding>
+                                <Insets top="20"/>
+                            </padding>
+
+                            <!-- Colonne 1 -->
+                            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                  style="-fx-background-color: #3498db; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="📚 Total Livres" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatTotalLivres" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+
+                            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                  style="-fx-background-color: #27ae60; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="✓ Livres Gratuits" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatLivresGratuits" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+
+                            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                  style="-fx-background-color: #e67e22; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="💰 Livres Payants" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatLivresPayants" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+
+                            <!-- Colonne 2 -->
+                            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                  style="-fx-background-color: #9b59b6; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="✍️ Total Auteurs" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatTotalAuteurs" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+
+                            <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                  style="-fx-background-color: #e74c3c; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="🗂️ Catégories" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatTotalCategories" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+
+                            <VBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                                  style="-fx-background-color: #34495e; -fx-padding: 20; -fx-background-radius: 10;">
+                                <Label text="📥 Téléchargements" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label fx:id="labelStatTotalTelechargements" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </top>
+
+</BorderPane>
